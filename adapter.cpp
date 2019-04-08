@@ -18,13 +18,13 @@ void Num2Str(const T &source, string &dest)
 }
 
 short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val);
+short readPosFloat(daveConnection* dc,int block,int byteAddr,string& val);
 
 short readPos(daveConnection* dc,const string& paraName,string& val)
 {
 	short ret = -1;
 	int start = 0;
 	float f=0.0;
-    cout << "enter read pos" << endl;
 	if(0==daveSetBit(dc, daveDB, 2600, 1, 1))
 	{
 		if(paraName=="Pos.x")
@@ -40,10 +40,14 @@ short readPos(daveConnection* dc,const string& paraName,string& val)
 			start = 5702;
 		}
 		
-		ret = readDbFloat(dc,start,0,val);
+		ret = readPosFloat(dc,start,0,val);
 
 		//daveClrBit(dc, daveDB, 2600, 1, 1);
 	}
+    else
+    {
+        cout << "set fail" << endl;
+    }
 	return ret;
 }
 
@@ -186,14 +190,14 @@ short readFeedRate(daveConnection* dc,string& val)
 	int start = 0;
 	unsigned char byteVal =0;
 	string tmp = "";
-	ret = daveReadBytes(dc,daveDB,1000,8,1,NULL);
+	ret = daveReadBytes(dc,daveDB,3800,0,1,NULL);
 	if (0==ret) 
 	{ 
 		byteVal = daveGetU8(dc);
 		tmp = to_string(byteVal);
 		transferGrayCode("feedRate", tmp);
 		val = tmp;
-	}  
+	}
 
 	return ret;
 }
@@ -204,7 +208,7 @@ short readSpindFeedRate(daveConnection* dc,string& val)
 	int start = 0;
 	unsigned char byteVal =0;
 	string tmp = "";
-	ret = daveReadBytes(dc,daveDB,1000,9,1,NULL);
+	ret = daveReadBytes(dc,daveDB,3801,0,1,NULL);
 	if (0==ret) 
 	{ 
 		byteVal = daveGetU8(dc);
@@ -274,6 +278,18 @@ short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val)
 }
 
 
+short readPosFloat(daveConnection* dc,int block,int byteAddr,string& val)
+{
+	short ret = -1;
+	float fVal =0.0;
+	ret = daveReadPos(dc,daveDB,block,byteAddr,2,NULL);
+	if(0==ret)
+	{
+		fVal = daveGetFloat(dc);
+		Num2Str(fVal,val);
+	}
+	return ret;
+}
 
 
 short connect_to_server(const string &ipAddr,unsigned short port, const string &user, const string &password, long timeout,void **handle)

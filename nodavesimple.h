@@ -458,6 +458,8 @@ EXPORTSPEC int DECL2 daveConnectPLC(daveConnection * dc);
 */
 EXPORTSPEC int DECL2 daveReadBytes(daveConnection * dc, int area, int DB, int start, int len, void * buffer);
 
+/* isesol adapter*/
+EXPORTSPEC int DECL2 daveReadPos(daveConnection * dc, int area, int DB, int start, int len, void * buffer);
 /* 
     Read len bytes from the PLC. Start determines the first byte.
     In contrast to daveReadBytes(), this function can read blocks 

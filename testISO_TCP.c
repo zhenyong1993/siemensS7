@@ -168,37 +168,139 @@ int main()
 		if(is_connect(handle))
 		{
 			cout<<"connected"<<endl;
-
+/*
 			if(0==read_param_val( handle, "toolNo", val))
 			{
 				cout<<"toolNo is "<<val<<endl;
 			}
+*/
 
-			if(0==read_param_val( handle, "DB3800.DBB0", val))
+//			if(0==read_param_val( handle, "DB3800.DBB0", val))
+			if(0==read_param_val( handle, "feedRate", val))
 			{
 				cout<<"feedRate is "<<val<<endl;
 			}
-
-			if(0==read_param_val( handle, "Pos.x", val))
-			{
-				cout<<"x is "<<val<<endl;
-			}
             else
             {
-                cout << "x read fail" << endl;
+                cout << "feedRate read fail" << endl;
             }
-/*
+
 			if(0==read_param_val( handle, "spindFeedRate", val))
 			{
 				cout<<"spindFeedRate is "<<val<<endl;
 			}
+            else
+            {
+                cout << "spindFeedRate read fail" << endl;
+            }
+ 
+			if(0==read_param_val( handle, "Pos.x", val))
+			{
+				cout<<"Pos.x is "<<val<<endl;
+			}
+            else
+            {
+                cout << "Pos.x read fail" << endl;
+            }
+
+			if(0==read_param_val( handle, "Pos.y", val))
+			{
+				cout<<"Pos.y is "<<val<<endl;
+			}
+            else
+            {
+                cout << "Pos.y read fail" << endl;
+            }
+
+			if(0==read_param_val( handle, "Pos.z", val))
+			{
+				cout<<"Pos.z is "<<val<<endl;
+			}
+            else
+            {
+                cout << "Pos.z read fail" << endl;
+            }
 
 			if(0==read_param_val( handle, "tempHighAlarm", val))
 			{
 				cout<<"tempHighAlarm is "<<val<<endl;
 			}
-*/
+            else
+            {
+                cout << "tempHighAlarm read fail!" << endl;
+            }
+
+			if(0==read_param_val( handle, "channelAlarm", val))
+			{
+				cout<<"channelAlarm is "<<val<<endl;
+			}
+            else
+            {
+                cout << "channelAlarm read fail!" << endl;
+            }
+
+			if(0==read_param_val( handle, "ctrlMode", val))
+			{
+				cout<<"ctrlMode is "<<val<<endl;
+			}
+            else
+            {
+                cout << "ctrlMode read fail!" << endl;
+            }
 			
+			if(0==read_param_val( handle, "machineStatus", val))
+			{
+				cout<<"machineStatus is "<<val<<endl;
+			}
+            else
+            {
+                cout << "machineStatus read fail!" << endl;
+            }
+
+			if(0==read_param_val( handle, "userAlarm", val))
+			{
+				cout<<"userAlarm is "<<val<<endl;
+			}
+            else
+            {
+                cout << "userAlarm read fail!" << endl;
+            }
+
+			if(0==read_param_val( handle, "DB3300.DBB2", val))
+			{
+				cout<<"operation status is "<<val<<endl;
+			}
+            else
+            {
+                cout << "operation status fail" << endl;
+            }
+
+			if(0==read_param_val( handle, "DB4900.DBB100", val))
+			{
+				cout<<"F_Speed is "<<val<<endl;
+			}
+            else
+            {
+                cout << "F_Speed read fail" << endl;
+            }
+
+			if(0==read_param_val( handle, "DB3300.DBX4.6", val))
+			{
+				cout<<"NCKalarm is "<<val<<endl;
+			}
+            else
+            {
+                cout << "NCKalarm read fail" << endl;
+            }
+
+			if(0==read_param_val( handle, "DB1400.DBD16", val))
+			{
+				cout<<"MachineWait is "<<val<<endl;
+			}
+            else
+            {
+                cout << "MachineWait read fail" << endl;
+            }
 		}
 		else
 		{

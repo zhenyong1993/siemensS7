@@ -1,1 +1,2 @@
+g++ -shared -o libs7.so adapter.cpp -L. -Wl,-rpath=./ -lnodave -std=c++11 -DLINUX
 g++ adapter.cpp testISO_TCP.c libnodave.so libs7.so -L. -DLINUX -std=c++11
