@@ -6,7 +6,7 @@
  or  MPI adapter 6ES7 972-0CA11-0XAC,
  IBH/MHJ-NetLink or CPs 243, 343 and 443
  or VIPA Speed7 with builtin ethernet support.
-  
+
  (C) Thomas Hergenhahn (thomas.hergenhahn@web.de) 2002..2005
 
  Libnodave is free software; you can redistribute it and/or modify
@@ -21,13 +21,13 @@
 
  You should have received a copy of the GNU Library General Public License
  along with Libnodave; see the file COPYING.  If not, write to
- the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  
+ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 /*
     Do NOT use this include file in C programs. It is just here for people who want
     to interface Libnodave with other programming languages, so they see that they
     do not neccessarily need to implement all the internal structures.
-    
+
     So if you plan to interface with other languages, this file shall show you
     show the minimum of structures and funtions you'll need to make known to your compiler.
 */
@@ -47,7 +47,7 @@ typedef struct {
     int wfd;
 } _daveOSserialType;
 #include <stdlib.h>
-#else    
+#else
 #ifdef BCCWIN
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -72,26 +72,26 @@ typedef struct {
 /*
     Protocol types to be used with newInterface:
 */
-#define daveProtoMPI	0	/* MPI for S7 300/400 */
-#define daveProtoMPI2	1	/* MPI for S7 300/400, "Andrew's version" */
-#define daveProtoMPI3	2	/* MPI for S7 300/400, Step 7 Version, not well tested */
-#define daveProtoMPI4	3	/* MPI for S7 300/400, "Andrew's version" with extra STX */
-#define daveProtoPPI	10	/* PPI for S7 200 */
+#define daveProtoMPI    0    /* MPI for S7 300/400 */
+#define daveProtoMPI2    1    /* MPI for S7 300/400, "Andrew's version" */
+#define daveProtoMPI3    2    /* MPI for S7 300/400, Step 7 Version, not well tested */
+#define daveProtoMPI4    3    /* MPI for S7 300/400, "Andrew's version" with extra STX */
+#define daveProtoPPI    10    /* PPI for S7 200 */
 
-#define daveProtoAS511	20	/* S5 programming port protocol */
+#define daveProtoAS511    20    /* S5 programming port protocol */
 
-#define daveProtoS7online 50	/* use s7onlinx.dll for transport */
+#define daveProtoS7online 50    /* use s7onlinx.dll for transport */
 
-#define daveProtoISOTCP	122	/* ISO over TCP */
-#define daveProtoISOTCP243 123	/* ISO over TCP with CP243 */
+#define daveProtoISOTCP    122    /* ISO over TCP */
+#define daveProtoISOTCP243 123    /* ISO over TCP with CP243 */
 
-#define daveProtoNLpro 230	/* MPI with NetLink Pro MPI to ethernet gateway */
+#define daveProtoNLpro 230    /* MPI with NetLink Pro MPI to ethernet gateway */
 
-#define daveProtoMPI_IBH 223	/* MPI with IBH NetLink MPI to ethernet gateway */
-#define daveProtoPPI_IBH 224	/* PPI with IBH NetLink PPI to ethernet gateway */
+#define daveProtoMPI_IBH 223    /* MPI with IBH NetLink MPI to ethernet gateway */
+#define daveProtoPPI_IBH 224    /* PPI with IBH NetLink PPI to ethernet gateway */
 
-#define daveProtoUserTransport 255	/* Libnodave will pass the PDUs of S7 Communication to user */
-					/* defined call back functions. */
+#define daveProtoUserTransport 255    /* Libnodave will pass the PDUs of S7 Communication to user */
+                    /* defined call back functions. */
 
 /*
  *    ProfiBus speed constants:
@@ -107,16 +107,16 @@ typedef struct {
 /*
     Some MPI function codes (yet unused ones may be incorrect).
 */
-#define daveFuncOpenS7Connection	0xF0
-#define daveFuncRead			0x04
-#define daveFuncWrite			0x05
-#define daveFuncRequestDownload		0x1A
-#define daveFuncDownloadBlock		0x1B
-#define daveFuncDownloadEnded		0x1C
-#define daveFuncStartUpload		0x1D
-#define daveFuncUpload			0x1E
-#define daveFuncEndUpload		0x1F
-#define daveFuncInsertBlock		0x28
+#define daveFuncOpenS7Connection    0xF0
+#define daveFuncRead            0x04
+#define daveFuncWrite            0x05
+#define daveFuncRequestDownload        0x1A
+#define daveFuncDownloadBlock        0x1B
+#define daveFuncDownloadEnded        0x1C
+#define daveFuncStartUpload        0x1D
+#define daveFuncUpload            0x1E
+#define daveFuncEndUpload        0x1F
+#define daveFuncInsertBlock        0x28
 /*
     S7 specific constants:
 */
@@ -129,56 +129,56 @@ typedef struct {
 #define daveBlockType_SFB 'F'
 /*
     Use these constants for parameter "area" in daveReadBytes and daveWriteBytes
-*/    
-#define daveSysInfo 0x3		/* System info of 200 family */
-#define daveSysFlags  0x5	/* System flags of 200 family */
-#define daveAnaIn  0x6		/* analog inputs of 200 family */
-#define daveAnaOut  0x7		/* analog outputs of 200 family */
+*/
+#define daveSysInfo 0x3        /* System info of 200 family */
+#define daveSysFlags  0x5    /* System flags of 200 family */
+#define daveAnaIn  0x6        /* analog inputs of 200 family */
+#define daveAnaOut  0x7        /* analog outputs of 200 family */
 
-#define daveP 0x80    
-#define daveInputs 0x81    
-#define daveOutputs 0x82    
+#define daveP 0x80
+#define daveInputs 0x81
+#define daveOutputs 0x82
 #define daveFlags 0x83
-#define daveDB 0x84	/* data blocks */
-#define daveDI 0x85	/* instance data blocks */
-#define daveLocal 0x86 	/* not tested */
-#define daveV 0x87	/* don't know what it is */
-#define daveCounter 28	/* S7 counters */
-#define daveTimer 29	/* S7 timers */
-#define daveCounter200 30	/* IEC counters (200 family) */
-#define daveTimer200 31		/* IEC timers (200 family) */
+#define daveDB 0x84    /* data blocks */
+#define daveDI 0x85    /* instance data blocks */
+#define daveLocal 0x86     /* not tested */
+#define daveV 0x87    /* don't know what it is */
+#define daveCounter 28    /* S7 counters */
+#define daveTimer 29    /* S7 timers */
+#define daveCounter200 30    /* IEC counters (200 family) */
+#define daveTimer200 31        /* IEC timers (200 family) */
 
 /**
     Library specific:
 **/
 /*
-    Result codes. Genarally, 0 means ok, 
+    Result codes. Genarally, 0 means ok,
     >0 are results (also errors) reported by the PLC
     <0 means error reported by library code.
 */
-#define daveResOK 0				/* means all ok */
-#define daveResNoPeripheralAtAddress 1		/* CPU tells there is no peripheral at address */
-#define daveResMultipleBitsNotSupported 6 	/* CPU tells it does not support to read a bit block with a */
-						/* length other than 1 bit. */
-#define daveResItemNotAvailable200 3		/* means a a piece of data is not available in the CPU, e.g. */
-						/* when trying to read a non existing DB or bit bloc of length<>1 */
-						/* This code seems to be specific to 200 family. */
-					    
-#define daveResItemNotAvailable 10		/* means a a piece of data is not available in the CPU, e.g. */
-						/* when trying to read a non existing DB */
+#define daveResOK 0                /* means all ok */
+#define daveResNoPeripheralAtAddress 1        /* CPU tells there is no peripheral at address */
+#define daveResMultipleBitsNotSupported 6     /* CPU tells it does not support to read a bit block with a */
+                        /* length other than 1 bit. */
+#define daveResItemNotAvailable200 3        /* means a a piece of data is not available in the CPU, e.g. */
+                        /* when trying to read a non existing DB or bit bloc of length<>1 */
+                        /* This code seems to be specific to 200 family. */
 
-#define daveAddressOutOfRange 5			/* means the data address is beyond the CPUs address range */
-#define daveWriteDataSizeMismatch 7		/* means the write data size doesn't fit item size */
-#define daveResCannotEvaluatePDU -123    
-#define daveResCPUNoData -124 
-#define daveUnknownError -125 
-#define daveEmptyResultError -126 
-#define daveEmptyResultSetError -127 
-#define daveResUnexpectedFunc -128 
+#define daveResItemNotAvailable 10        /* means a a piece of data is not available in the CPU, e.g. */
+                        /* when trying to read a non existing DB */
+
+#define daveAddressOutOfRange 5            /* means the data address is beyond the CPUs address range */
+#define daveWriteDataSizeMismatch 7        /* means the write data size doesn't fit item size */
+#define daveResCannotEvaluatePDU -123
+#define daveResCPUNoData -124
+#define daveUnknownError -125
+#define daveEmptyResultError -126
+#define daveEmptyResultSetError -127
+#define daveResUnexpectedFunc -128
 #define daveResUnknownDataUnitSize -129
 
-#define daveResShortPacket -1024 
-#define daveResTimeout -1025 
+#define daveResShortPacket -1024
+#define daveResTimeout -1025
 
 /*
     error code to message string conversion:
@@ -191,30 +191,30 @@ EXPORTSPEC char * DECL2 daveStrerror(int code);
 */
 EXPORTSPEC void DECL2 daveStringCopy(char * intString, char * extString);
 
-/* 
-    Max number of bytes in a single message. 
+/*
+    Max number of bytes in a single message.
 */
 #define daveMaxRawLen 2048
 /*
     Some definitions for debugging:
 */
-#define daveDebugRawRead  	0x01	/* Show the single bytes received */
-#define daveDebugSpecialChars  	0x02	/* Show when special chars are read */
-#define daveDebugRawWrite	0x04	/* Show the single bytes written */
-#define daveDebugListReachables 0x08	/* Show the steps when determine devices in MPI net */
-#define daveDebugInitAdapter 	0x10	/* Show the steps when Initilizing the MPI adapter */
-#define daveDebugConnect 	0x20	/* Show the steps when connecting a PLC */
-#define daveDebugPacket 	0x40
-#define daveDebugByte 		0x80
-#define daveDebugCompare 	0x100
-#define daveDebugExchange 	0x200
-#define daveDebugPDU 		0x400	/* debug PDU handling */
-#define daveDebugUpload		0x800	/* debug PDU loading program blocks from PLC */
-#define daveDebugMPI 		0x1000
-#define daveDebugPrintErrors	0x2000	/* Print error messages */
-#define daveDebugPassive 	0x4000
-#define daveDebugErrorReporting	0x8000
-#define daveDebugOpen		0x10000  /* print messages in openSocket and setPort */
+#define daveDebugRawRead      0x01    /* Show the single bytes received */
+#define daveDebugSpecialChars      0x02    /* Show when special chars are read */
+#define daveDebugRawWrite    0x04    /* Show the single bytes written */
+#define daveDebugListReachables 0x08    /* Show the steps when determine devices in MPI net */
+#define daveDebugInitAdapter     0x10    /* Show the steps when Initilizing the MPI adapter */
+#define daveDebugConnect     0x20    /* Show the steps when connecting a PLC */
+#define daveDebugPacket     0x40
+#define daveDebugByte         0x80
+#define daveDebugCompare     0x100
+#define daveDebugExchange     0x200
+#define daveDebugPDU         0x400    /* debug PDU handling */
+#define daveDebugUpload        0x800    /* debug PDU loading program blocks from PLC */
+#define daveDebugMPI         0x1000
+#define daveDebugPrintErrors    0x2000    /* Print error messages */
+#define daveDebugPassive     0x4000
+#define daveDebugErrorReporting    0x8000
+#define daveDebugOpen        0x10000  /* print messages in openSocket and setPort */
 
 #define daveDebugAll 0x1ffff
 /*
@@ -229,7 +229,7 @@ EXPORTSPEC int DECL2 daveGetDebug(void);
 #define us unsigned short
 #define u32 unsigned int
 
-/* 
+/*
     This is a wrapper for the serial or ethernet interface. This is here to make porting easier.
 */
 
@@ -246,41 +246,41 @@ typedef struct {
 } PDU;
 */
 typedef struct {
-    uc * header;	/* pointer to start of PDU (PDU header) */
-    uc * param;		/* pointer to start of parameters inside PDU */
-    uc * data;		/* pointer to start of data inside PDU */
-    uc * udata;		/* pointer to start of data inside PDU */
-    int hlen;		/* header length */
-    int plen;		/* parameter length */
-    int dlen;		/* data length */
-    int udlen;		/* user or result data length */
+    uc * header;    /* pointer to start of PDU (PDU header) */
+    uc * param;        /* pointer to start of parameters inside PDU */
+    uc * data;        /* pointer to start of data inside PDU */
+    uc * udata;        /* pointer to start of data inside PDU */
+    int hlen;        /* header length */
+    int plen;        /* parameter length */
+    int dlen;        /* data length */
+    int udlen;        /* user or result data length */
 } PDU;
 
 
 
-/* 
+/*
     This groups an interface together with some information about it's properties
     in the library's context.
 */
 struct _daveInterface {
-    int _timeout;	/* Timeout in microseconds used in transort. */
-	_daveOSserialType fd; /* some handle for the serial interface */
+    int _timeout;    /* Timeout in microseconds used in transort. */
+    _daveOSserialType fd; /* some handle for the serial interface */
 };
 
 EXPORTSPEC daveInterface * DECL2 daveNewInterface(_daveOSserialType nfd, char * nname, int localMPI, int protocol, int speed);
 
-/* 
+/*
     This holds data for a PLC connection;
 */
 struct _daveConnection {
-    int AnswLen;	/* length of last message */
-    uc * resultPointer;	/* used to retrieve single values from the result byte array */
+    int AnswLen;    /* length of last message */
+    uc * resultPointer;    /* used to retrieve single values from the result byte array */
     int maxPDUlength;
-	int MPIAdr; 	/* The PLC's address */
-	daveInterface * iface; /* pointer to used interface */
-}; 
+    int MPIAdr;     /* The PLC's address */
+    daveInterface * iface; /* pointer to used interface */
+};
 
-/* 
+/*
     Setup a new connection structure using an initialized
     daveInterface and PLC's MPI address.
 */
@@ -312,9 +312,9 @@ EXPORTSPEC int DECL2 daveGetResponse(daveConnection * dc);
 EXPORTSPEC int DECL2 daveSendMessage(daveConnection * dc, PDU * p);
 
 /******
-    
+
     Utilities:
-    
+
 ****/
 /*
     Hex dump PDU:
@@ -341,7 +341,7 @@ EXPORTSPEC int DECL2 daveSwapIed_32(int ff);
 /**
     Data conversion convenience functions. The older set has been removed.
     Newer conversion routines. As the terms WORD, INT, INTEGER etc have different meanings
-    for users of different programming languages and compilers, I choose to provide a new 
+    for users of different programming languages and compilers, I choose to provide a new
     set of conversion routines named according to the bit length of the value used. The 'U'
     or 'S' stands for unsigned or signed.
 **/
@@ -401,19 +401,19 @@ EXPORTSPEC void DECL2 davePutFloatAt(uc *b,int pos, float v);
 /**
     Timer and Counter conversion functions:
 **/
-/*	
+/*
     get time in seconds from current read position:
 */
 EXPORTSPEC float DECL2 daveGetSeconds(daveConnection * dc);
-/*	
+/*
     get time in seconds from random position:
 */
 EXPORTSPEC float DECL2 daveGetSecondsAt(daveConnection * dc, int pos);
-/*	
+/*
     get counter value from current read position:
 */
 EXPORTSPEC int DECL2 daveGetCounterValue(daveConnection * dc);
-/*	
+/*
     get counter value from random read position:
 */
 EXPORTSPEC int DECL2 daveGetCounterValueAt(daveConnection * dc,int pos);
@@ -439,10 +439,10 @@ EXPORTSPEC int DECL2 daveGetOrderCode(daveConnection * dc,char * buf);
 
 EXPORTSPEC int DECL2 daveConnectPLC(daveConnection * dc);
 
-/* 
+/*
     Read len bytes from the PLC. Start determines the first byte.
     Area denotes whether the data comes from FLAGS, DATA BLOCKS,
-    INPUTS or OUTPUTS, etc. 
+    INPUTS or OUTPUTS, etc.
     DB is the number of the data block to be used. Set it to zero
     for other area types.
     Buffer is a pointer to a memory block provided by the calling
@@ -450,24 +450,24 @@ EXPORTSPEC int DECL2 daveConnectPLC(daveConnection * dc);
     Hence it must be big enough to take up the result.
     In any case, you can also retrieve the result data using the get<type> macros
     on the connection pointer.
-    
-    RESTRICTION:There is no check for max. message len or automatic splitting into 
-		multiple messages. Use daveReadManyBytes() in case the data you want
-		to read doesn't fit into a single PDU.
-		
+
+    RESTRICTION:There is no check for max. message len or automatic splitting into
+        multiple messages. Use daveReadManyBytes() in case the data you want
+        to read doesn't fit into a single PDU.
+
 */
 EXPORTSPEC int DECL2 daveReadBytes(daveConnection * dc, int area, int DB, int start, int len, void * buffer);
 
 /* isesol adapter*/
 EXPORTSPEC int DECL2 daveReadPos(daveConnection * dc, int area, int DB, int start, int len, void * buffer);
-/* 
+/*
     Read len bytes from the PLC. Start determines the first byte.
-    In contrast to daveReadBytes(), this function can read blocks 
+    In contrast to daveReadBytes(), this function can read blocks
     that are too long for a single transaction. To achieve this,
     the data is fetched with multiple subsequent read requests to
     the CPU.
     Area denotes whether the data comes from FLAGS, DATA BLOCKS,
-    INPUTS or OUTPUTS, etc. 
+    INPUTS or OUTPUTS, etc.
     DB is the number of the data block to be used. Set it to zero
     for other area types.
     Buffer is a pointer to a memory block provided by the calling
@@ -478,28 +478,28 @@ EXPORTSPEC int DECL2 daveReadPos(daveConnection * dc, int area, int DB, int star
 */
 EXPORTSPEC int DECL2 daveReadManyBytes(daveConnection * dc,int area, int DBnum, int start,int len, void * buffer);
 
-/* 
-    Write len bytes from buffer to the PLC. 
+/*
+    Write len bytes from buffer to the PLC.
     Start determines the first byte.
     Area denotes whether the data goes to FLAGS, DATA BLOCKS,
     INPUTS or OUTPUTS, etc.
     DB is the number of the data block to be used. Set it to zero
     for other area types.
-    RESTRICTION: There is no check for max. message len or automatic splitting into 
-		 multiple messages. Use daveReadManyBytes() in case the data you want
-		 to read doesn't fit into a single PDU.
+    RESTRICTION: There is no check for max. message len or automatic splitting into
+         multiple messages. Use daveReadManyBytes() in case the data you want
+         to read doesn't fit into a single PDU.
 
 */
 EXPORTSPEC int DECL2 daveWriteBytes(daveConnection * dc,int area, int DB, int start, int len, void * buffer);
 
-/* 
+/*
     Write len bytes to the PLC. Start determines the first byte.
-    In contrast to daveWriteBytes(), this function can write blocks 
+    In contrast to daveWriteBytes(), this function can write blocks
     that are too long for a single transaction. To achieve this, the
     the data is transported with multiple subsequent write requests to
     the CPU.
     Area denotes whether the data comes from FLAGS, DATA BLOCKS,
-    INPUTS or OUTPUTS, etc. 
+    INPUTS or OUTPUTS, etc.
     DB is the number of the data block to be used. Set it to zero
     for other area types.
     Buffer is a pointer to a memory block provided by the calling
@@ -507,7 +507,7 @@ EXPORTSPEC int DECL2 daveWriteBytes(daveConnection * dc,int area, int DB, int st
 */
 EXPORTSPEC int DECL2 daveWriteManyBytes(daveConnection * dc,int area, int DB, int start, int len, void * buffer);
 
-/* 
+/*
     Bit manipulation:
 */
 EXPORTSPEC int DECL2 daveReadBits(daveConnection * dc, int area, int DB, int start, int len, void * buffer);
@@ -535,9 +535,9 @@ EXPORTSPEC int DECL2 daveStop(daveConnection*dc);
 EXPORTSPEC int DECL2 daveStart(daveConnection*dc);
 /*
     PLC special commands
-*/    
+*/
 EXPORTSPEC int DECL2 daveCopyRAMtoROM(daveConnection*dc);
-	
+
 EXPORTSPEC int DECL2 daveForce200(daveConnection * dc, int area, int start, int val);
 /*
     Multiple variable support:
@@ -621,18 +621,18 @@ EXPORTSPEC int DECL2 daveResetIBH(daveInterface * di);
 EXPORTSPEC int DECL2 daveGetProgramBlock(daveConnection * dc, int blockType, int number, char* buffer, int * length);
 /**
     PLC realtime clock handling:
-*/ 
+*/
 /*
     read out clock:
-*/ 
+*/
 EXPORTSPEC int DECL2 daveReadPLCTime(daveConnection * dc);
 /*
     set clock to a value given by user:
-*/ 
+*/
 EXPORTSPEC int DECL2 daveSetPLCTime(daveConnection * dc,uc * ts);
 /*
     set clock to PC system clock:
-*/ 
+*/
 EXPORTSPEC int DECL2 daveSetPLCTimeToSystime(daveConnection * dc);
 
 EXPORTSPEC uc DECL2 daveToBCD(uc i);
@@ -646,7 +646,7 @@ EXPORTSPEC uc DECL2 daveFromBCD(uc i);
 
 
 /*
-    Changes: 
+    Changes:
     04/10/05  first version.
     09/11/05  added read/write functions for long blocks of data.
     10/26/07  fixed __cplusplus

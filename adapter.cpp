@@ -11,10 +11,10 @@ using namespace std;
 template <typename T>
 void Num2Str(const T &source, string &dest)
 {
-	stringstream stream;
-	stream.precision(3);
-	stream << source;
-	dest = stream.str();   //�˴�Ҳ������ stream>>dest  
+    stringstream stream;
+    stream.precision(3);
+    stream << source;
+    dest = stream.str();   //�˴�Ҳ������ stream>>dest
 }
 
 short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val);
@@ -22,33 +22,33 @@ short readPosFloat(daveConnection* dc,int block,int byteAddr,string& val);
 
 short readPos(daveConnection* dc,const string& paraName,string& val)
 {
-	short ret = -1;
-	int start = 0;
-	float f=0.0;
-	if(0==daveSetBit(dc, daveDB, 2600, 1, 1))
-	{
-		if(paraName=="Pos.x")
-		{
-			start = 5700;
-		}
-		else if(paraName=="Pos.y")
-		{
-			start = 5701;
-		}
-		else
-		{
-			start = 5702;
-		}
-		
-		ret = readPosFloat(dc,start,0,val);
+    short ret = -1;
+    int start = 0;
+    float f=0.0;
+    if(0==daveSetBit(dc, daveDB, 2600, 1, 1))
+    {
+        if(paraName=="Pos.x")
+        {
+            start = 5700;
+        }
+        else if(paraName=="Pos.y")
+        {
+            start = 5701;
+        }
+        else
+        {
+            start = 5702;
+        }
 
-		//daveClrBit(dc, daveDB, 2600, 1, 1);
-	}
+        ret = readPosFloat(dc,start,0,val);
+
+        //daveClrBit(dc, daveDB, 2600, 1, 1);
+    }
     else
     {
         cout << "set fail" << endl;
     }
-	return ret;
+    return ret;
 }
 
 
@@ -56,7 +56,7 @@ void transferGrayCode(const string& itemName, string& value)
 {
     int value_int = atoi(value.c_str());
     int num = 0;
-    if (itemName.find("spindFeedRate") != string::npos) 
+    if (itemName.find("spindFeedRate") != string::npos)
     {
         switch (value_int)
         {
@@ -110,7 +110,7 @@ void transferGrayCode(const string& itemName, string& value)
             break;
         }
     }
-    else if (itemName.find("feedRate") != string::npos) 
+    else if (itemName.find("feedRate") != string::npos)
     {
         switch (value_int)
         {
@@ -186,338 +186,338 @@ void transferGrayCode(const string& itemName, string& value)
 
 short readFeedRate(daveConnection* dc,string& val)
 {
-	short ret = -1;
-	int start = 0;
-	unsigned char byteVal =0;
-	string tmp = "";
-	ret = daveReadBytes(dc,daveDB,3800,0,1,NULL);
-	if (0==ret) 
-	{ 
-		byteVal = daveGetU8(dc);
-		tmp = to_string(byteVal);
-		transferGrayCode("feedRate", tmp);
-		val = tmp;
-	}
+    short ret = -1;
+    int start = 0;
+    unsigned char byteVal =0;
+    string tmp = "";
+    ret = daveReadBytes(dc,daveDB,3800,0,1,NULL);
+    if (0==ret)
+    {
+        byteVal = daveGetU8(dc);
+        tmp = to_string(byteVal);
+        transferGrayCode("feedRate", tmp);
+        val = tmp;
+    }
 
-	return ret;
+    return ret;
 }
 
 short readSpindFeedRate(daveConnection* dc,string& val)
 {
-	short ret = -1;
-	int start = 0;
-	unsigned char byteVal =0;
-	string tmp = "";
-	ret = daveReadBytes(dc,daveDB,3801,0,1,NULL);
-	if (0==ret) 
-	{ 
-		byteVal = daveGetU8(dc);
-		tmp = to_string(byteVal);
-		transferGrayCode("spindFeedRate", tmp);
-		val = tmp;
-	}  
+    short ret = -1;
+    int start = 0;
+    unsigned char byteVal =0;
+    string tmp = "";
+    ret = daveReadBytes(dc,daveDB,3801,0,1,NULL);
+    if (0==ret)
+    {
+        byteVal = daveGetU8(dc);
+        tmp = to_string(byteVal);
+        transferGrayCode("spindFeedRate", tmp);
+        val = tmp;
+    }
 
-	return ret;
+    return ret;
 }
 
 short readDbBit(daveConnection* dc,int block,int byteAddr,int bitIndex,string& val)
 {
-	short ret = -1;
-	unsigned char byteVal =0;
-	if(bitIndex>=0 && bitIndex<8)
-	{
-		ret = daveReadBytes(dc,daveDB,block,byteAddr,1,NULL);
-		if(0==ret)
-		{
-			byteVal = daveGetU8(dc);
-			byteVal = (byteVal>>bitIndex) & 0x01;
-			val = to_string(byteVal);
-		}		
-	}
-	return ret;
+    short ret = -1;
+    unsigned char byteVal =0;
+    if(bitIndex>=0 && bitIndex<8)
+    {
+        ret = daveReadBytes(dc,daveDB,block,byteAddr,1,NULL);
+        if(0==ret)
+        {
+            byteVal = daveGetU8(dc);
+            byteVal = (byteVal>>bitIndex) & 0x01;
+            val = to_string(byteVal);
+        }
+    }
+    return ret;
 }
 
 
 short readDbByte(daveConnection* dc,int block,int byteAddr,string& val)
 {
-	short ret = -1;
-	unsigned char byteVal =0;
-	ret = daveReadBytes(dc,daveDB,block,byteAddr,1,NULL);
-	if(0==ret)
-	{
-		byteVal = daveGetU8(dc);
-		val = to_string(byteVal);
-	}
-	return ret;
+    short ret = -1;
+    unsigned char byteVal =0;
+    ret = daveReadBytes(dc,daveDB,block,byteAddr,1,NULL);
+    if(0==ret)
+    {
+        byteVal = daveGetU8(dc);
+        val = to_string(byteVal);
+    }
+    return ret;
 }
 
 short readDbWord(daveConnection* dc,int block,int byteAddr,string& val)
 {
-	short ret = -1;
-	unsigned short u16Val =0;
-	ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
-	if(0==ret)
-	{
-		u16Val = daveGetU16(dc);
-		val = to_string(u16Val);
-	}
-	return ret;
+    short ret = -1;
+    unsigned short u16Val =0;
+    ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
+    if(0==ret)
+    {
+        u16Val = daveGetU16(dc);
+        val = to_string(u16Val);
+    }
+    return ret;
 }
 
 short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val)
 {
-	short ret = -1;
-	float fVal =0.0;
-	ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
-	if(0==ret)
-	{
-		fVal = daveGetFloat(dc);
-		Num2Str(fVal,val);
-	}
-	return ret;
+    short ret = -1;
+    float fVal =0.0;
+    ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
+    if(0==ret)
+    {
+        fVal = daveGetFloat(dc);
+        Num2Str(fVal,val);
+    }
+    return ret;
 }
 
 
 short readPosFloat(daveConnection* dc,int block,int byteAddr,string& val)
 {
-	short ret = -1;
-	float fVal =0.0;
-	ret = daveReadPos(dc,daveDB,block,byteAddr,2,NULL);
-	if(0==ret)
-	{
-		fVal = daveGetFloat(dc);
-		Num2Str(fVal,val);
-	}
-	return ret;
+    short ret = -1;
+    float fVal =0.0;
+    ret = daveReadPos(dc,daveDB,block,byteAddr,2,NULL);
+    if(0==ret)
+    {
+        fVal = daveGetFloat(dc);
+        Num2Str(fVal,val);
+    }
+    return ret;
 }
 
 
 short connect_to_server(const string &ipAddr,unsigned short port, const string &user, const string &password, long timeout,void **handle)
 {
-	short ret = -1;
+    short ret = -1;
     daveInterface * di = NULL;
     daveConnection * dc = NULL;
     _daveOSserialType fds;
     daveSetDebug(daveDebugPrintErrors);
-    
-    
+
+
     fds.rfd=openSocket(102, (char*)ipAddr.c_str());
-    	
-	if(fds.rfd)
-	{
-		fds.wfd=fds.rfd;
-		di =daveNewInterface(fds,"IF1",0, daveProtoISOTCP, daveSpeed187k);
-		daveSetTimeout(di,timeout*1000);
-		dc =daveNewConnection(di,2,0, 2); 	
 
-		printf("dc is %x\n",dc);
+    if(fds.rfd)
+    {
+        fds.wfd=fds.rfd;
+        di =daveNewInterface(fds,"IF1",0, daveProtoISOTCP, daveSpeed187k);
+        daveSetTimeout(di,timeout*1000);
+        dc =daveNewConnection(di,2,0, 2);
 
-		if (0==daveConnectPLC(dc))
-		{
-			ret = 0;
-			*handle = dc;
-		}
-		else
-		{
-			closeSocket(fds.rfd);
-			fds.rfd = 0;
-			fds.wfd = 0;
-			
-			if(di)
-			{
-				daveFree(di);				
-			}
+        printf("dc is %x\n",dc);
 
-			if(dc)
-			{
-				daveFree(dc);
-			}
-		}
-	}
-	return ret;
+        if (0==daveConnectPLC(dc))
+        {
+            ret = 0;
+            *handle = dc;
+        }
+        else
+        {
+            closeSocket(fds.rfd);
+            fds.rfd = 0;
+            fds.wfd = 0;
+
+            if(di)
+            {
+                daveFree(di);
+            }
+
+            if(dc)
+            {
+                daveFree(dc);
+            }
+        }
+    }
+    return ret;
 }
 
 short read_param_val(void *handle, const string &itemName, string &itemValue)
 {
-	short ret = -1;
-	string tmp = "";
-	unsigned char tmpU8=0;
-	if(handle)
-	{
-		daveConnection * dc = (daveConnection*)handle;
-		if(itemName.find("Pos.")!= string::npos)
-		{
-			ret = readPos(dc, itemName, itemValue);		
-		}
-		else if(itemName=="feedRate")
-		{
-			ret = readFeedRate(dc,itemValue);
-		}
-		else if(itemName=="spindFeedRate")
-		{
-			ret = readSpindFeedRate(dc,itemValue);
-		}
-		else if(itemName=="toolNo")
-		{
-			ret = readDbByte(dc,2500,2000,itemValue);
-		}
-		else if(itemName=="tempHighAlarm")
-		{						
-			ret = readDbBit(dc,2700,3,0,tmp);
-		}
-		else if(itemName=="channelAlarm")
-		{
-			ret = readDbBit(dc,2700,3,6,tmp);	
-		}
-		else if(itemName=="ctrlMode")
-		{
-			ret = readDbByte(dc,3100,0,tmp);
-			if(0==ret)
-			{
-				tmpU8 = atoi((char*)tmp.c_str());
-				tmpU8 = tmpU8 & 0x07;
-				itemValue = to_string(tmpU8);
-			}			
-		}
-		else if(itemName=="machineStatus")
-		{
-			ret = readDbByte(dc,3300,3,tmp);
-			if(0==ret)
-			{
-				tmpU8 = atoi((char*)tmp.c_str());
-				tmpU8 = tmpU8 & 0x1f;
-				itemValue = to_string(tmpU8);
-			}			
-		}	
-		else if(itemName.find("userAlarm")!= string::npos)
-		{
-			tmp = itemName;
-			tmp=tmp.erase(0,9);
-			tmpU8 = atoi((char*)tmp.c_str());
-			if(tmpU8>=0 && tmpU8<16)
-			{
-				ret = readDbByte(dc, 1600, tmpU8, itemValue);
-			}
-		}
-		else if(itemName.find("DB")!= string::npos)
-		{
-			tmp = itemName;
-			int index = tmp.find(".");
-			int block = 0;
-			int byteAddr = 0;
-			int bitIndex = 0;
-			if(index!=string::npos)
-			{
-				tmp = itemName.substr(2,index-2);
-				block = atoi((char*)tmp.c_str());
-				
-				tmp = itemName;
-				tmp = tmp.erase(0,index+1);
-				if((index=tmp.find("DBB"))!=string::npos)
-				{
-					tmp = tmp.erase(0,3);
-					byteAddr = atoi((char*)tmp.c_str());
-					ret = readDbByte(dc, block, byteAddr, itemValue);
-				}
-				else if((index=tmp.find("DBX"))!=string::npos)
-				{
-					tmp = tmp.erase(0,3);
-					index = tmp.find(".");
-					if(index!=string::npos)
-					{
-						string sub = tmp.substr(0,index);
-						byteAddr = atoi((char*)sub.c_str());
-						sub = tmp.substr(index+1);
-						bitIndex = atoi((char*)sub.c_str());
-						ret = readDbBit(dc, block, byteAddr, bitIndex, itemValue);
-					}
-				}
-				else if((index=tmp.find("DBD"))!=string::npos)
-				{
-					tmp = tmp.erase(0,3);
-					byteAddr = atoi((char*)tmp.c_str());
-					if(tmp.find("REAL")!=string::npos || tmp.find("real")!=string::npos)
-					{
-						ret = readDbFloat(dc, block, byteAddr, itemValue);
-					}
-					else
-					{
-						ret = readDbWord(dc, block, byteAddr, itemValue);
-					}
-				}				
-			}
-		}
-	}
-	return ret;
+    short ret = -1;
+    string tmp = "";
+    unsigned char tmpU8=0;
+    if(handle)
+    {
+        daveConnection * dc = (daveConnection*)handle;
+        if(itemName.find("Pos.")!= string::npos)
+        {
+            ret = readPos(dc, itemName, itemValue);
+        }
+        else if(itemName=="feedRate")
+        {
+            ret = readFeedRate(dc,itemValue);
+        }
+        else if(itemName=="spindFeedRate")
+        {
+            ret = readSpindFeedRate(dc,itemValue);
+        }
+        else if(itemName=="toolNo")
+        {
+            ret = readDbByte(dc,2500,2000,itemValue);
+        }
+        else if(itemName=="tempHighAlarm")
+        {
+            ret = readDbBit(dc,2700,3,0,tmp);
+        }
+        else if(itemName=="channelAlarm")
+        {
+            ret = readDbBit(dc,2700,3,6,tmp);
+        }
+        else if(itemName=="ctrlMode")
+        {
+            ret = readDbByte(dc,3100,0,tmp);
+            if(0==ret)
+            {
+                tmpU8 = atoi((char*)tmp.c_str());
+                tmpU8 = tmpU8 & 0x07;
+                itemValue = to_string(tmpU8);
+            }
+        }
+        else if(itemName=="machineStatus")
+        {
+            ret = readDbByte(dc,3300,3,tmp);
+            if(0==ret)
+            {
+                tmpU8 = atoi((char*)tmp.c_str());
+                tmpU8 = tmpU8 & 0x1f;
+                itemValue = to_string(tmpU8);
+            }
+        }
+        else if(itemName.find("userAlarm")!= string::npos)
+        {
+            tmp = itemName;
+            tmp=tmp.erase(0,9);
+            tmpU8 = atoi((char*)tmp.c_str());
+            if(tmpU8>=0 && tmpU8<16)
+            {
+                ret = readDbByte(dc, 1600, tmpU8, itemValue);
+            }
+        }
+        else if(itemName.find("DB")!= string::npos)
+        {
+            tmp = itemName;
+            int index = tmp.find(".");
+            int block = 0;
+            int byteAddr = 0;
+            int bitIndex = 0;
+            if(index!=string::npos)
+            {
+                tmp = itemName.substr(2,index-2);
+                block = atoi((char*)tmp.c_str());
+
+                tmp = itemName;
+                tmp = tmp.erase(0,index+1);
+                if((index=tmp.find("DBB"))!=string::npos)
+                {
+                    tmp = tmp.erase(0,3);
+                    byteAddr = atoi((char*)tmp.c_str());
+                    ret = readDbByte(dc, block, byteAddr, itemValue);
+                }
+                else if((index=tmp.find("DBX"))!=string::npos)
+                {
+                    tmp = tmp.erase(0,3);
+                    index = tmp.find(".");
+                    if(index!=string::npos)
+                    {
+                        string sub = tmp.substr(0,index);
+                        byteAddr = atoi((char*)sub.c_str());
+                        sub = tmp.substr(index+1);
+                        bitIndex = atoi((char*)sub.c_str());
+                        ret = readDbBit(dc, block, byteAddr, bitIndex, itemValue);
+                    }
+                }
+                else if((index=tmp.find("DBD"))!=string::npos)
+                {
+                    tmp = tmp.erase(0,3);
+                    byteAddr = atoi((char*)tmp.c_str());
+                    if(tmp.find("REAL")!=string::npos || tmp.find("real")!=string::npos)
+                    {
+                        ret = readDbFloat(dc, block, byteAddr, itemValue);
+                    }
+                    else
+                    {
+                        ret = readDbWord(dc, block, byteAddr, itemValue);
+                    }
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 short write_param_val(void *handle, const string &itemName, const string &itemValue)
 {
-	short ret = -1;
-	return ret;
+    short ret = -1;
+    return ret;
 }
 
 short disconnect(void **handle)
 {
-	short ret = -1;
+    short ret = -1;
     daveInterface* di = NULL;
     daveConnection* dc = NULL;
-    _daveOSserialType fds;	
-	if(handle)
-	{
-		dc = (daveConnection*)*handle;
-		
-		if(dc)
-		{
-			daveDisconnectPLC(dc);
-			
-			di = dc->iface;
-			
-			if(di)
-			{
-				fds = di->fd;
-				closeSocket(fds.rfd);
-				fds.rfd = 0;
-				fds.wfd = 0;
-			}
-			
-			daveFree(dc);	
+    _daveOSserialType fds;
+    if(handle)
+    {
+        dc = (daveConnection*)*handle;
 
-			daveFree(di);
-			
-			*handle = NULL;
-			
-			ret = 0;
-		}
-	}
-	return ret;
+        if(dc)
+        {
+            daveDisconnectPLC(dc);
+
+            di = dc->iface;
+
+            if(di)
+            {
+                fds = di->fd;
+                closeSocket(fds.rfd);
+                fds.rfd = 0;
+                fds.wfd = 0;
+            }
+
+            daveFree(dc);
+
+            daveFree(di);
+
+            *handle = NULL;
+
+            ret = 0;
+        }
+    }
+    return ret;
 }
 
 bool is_connect(void *handle)
 {
-	bool ret = false;
-	daveInterface* di = NULL;
-	daveConnection* dc = NULL;
-	if(handle)
-	{
-		dc = (daveConnection*)handle;
-		if(dc)
-		{
-			di = dc->iface;
-			if(di)
-			{
-				if(di->fd.rfd)
-				{
-					ret = true;
-				}
-			}
-		}
-	}
-	return ret;	
+    bool ret = false;
+    daveInterface* di = NULL;
+    daveConnection* dc = NULL;
+    if(handle)
+    {
+        dc = (daveConnection*)handle;
+        if(dc)
+        {
+            di = dc->iface;
+            if(di)
+            {
+                if(di->fd.rfd)
+                {
+                    ret = true;
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 bool needReconnect()
 {
-	return true;
+    return true;
 }
 
