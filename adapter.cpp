@@ -40,6 +40,13 @@ short readPos(daveConnection* dc,const string& paraName,string& val)
             start = 5702;
         }
 
+
+        string tmpVal;
+        if(0==readPosFloat(dc,start,4,tmpVal))
+        {
+            cout << "rest Pos is" << tmpVal << endl;
+        }
+
         ret = readPosFloat(dc,start,0,val);
 
         //daveClrBit(dc, daveDB, 2600, 1, 1);
@@ -361,13 +368,17 @@ short read_param_val(void *handle, const string &itemName, string &itemValue)
         {
             ret = readDbByte(dc,2500,2000,itemValue);
         }
+        else if(itemName=="progNum")
+        {
+            ret = readDbByte(dc,4900,1000,itemValue);
+        }
         else if(itemName=="tempHighAlarm")
         {
-            ret = readDbBit(dc,2700,3,0,tmp);
+            ret = readDbBit(dc,2700,3,0,itemValue);
         }
         else if(itemName=="channelAlarm")
         {
-            ret = readDbBit(dc,2700,3,6,tmp);
+            ret = readDbBit(dc,2700,3,6,itemValue);
         }
         else if(itemName=="ctrlMode")
         {

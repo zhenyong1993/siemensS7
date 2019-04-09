@@ -266,7 +266,7 @@ int main()
                 cout << "userAlarm read fail!" << endl;
             }
 
-            if(0==read_param_val( handle, "DB3300.DBB2", val))
+            if(0==read_param_val( handle, "DB3300.DBB2", val)) //加工状态
             {
                 cout<<"operation status is "<<val<<endl;
             }
@@ -301,6 +301,44 @@ int main()
             {
                 cout << "MachineWait read fail" << endl;
             }
+
+            //if(0==read_param_val( handle, "DB4900.DBD1000", val))
+            if(0==read_param_val( handle, "progNum", val))
+            {
+                cout<<"progNum is "<<val<<endl;
+            }
+            else
+            {
+                cout << "progNum read fail" << endl;
+            }
+
+            if(0==read_param_val( handle, "DB4900.DBW204", val))
+            {
+                cout<<"progNum is "<<val<<endl;
+            }
+            else
+            {
+                cout << "progNum read fail" << endl;
+            }
+
+            if(0==read_param_val( handle, "DB4900.DBB201", val))
+            {
+                cout<<"start is "<<val<<endl;
+            }
+            else
+            {
+                cout << "start read fail" << endl;
+            }
+
+            if(0==read_param_val( handle, "DB4900.DBB203", val))
+            {
+                cout<<"end is "<<val<<endl;
+            }
+            else
+            {
+                cout << "end read fail" << endl;
+            }
+
         }
         else
         {
