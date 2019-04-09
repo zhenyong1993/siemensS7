@@ -18,6 +18,7 @@ void Num2Str(const T &source, string &dest)
 }
 
 short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val);
+short readDbWord(daveConnection* dc,int block,int byteAddr,string& val);
 short readPosFloat(daveConnection* dc,int block,int byteAddr,string& val);
 
 short readPos(daveConnection* dc,const string& paraName,string& val)
@@ -195,13 +196,14 @@ short readFeedRate(daveConnection* dc,string& val)
 {
     short ret = -1;
     int start = 0;
-    unsigned char byteVal =0;
+    unsigned short u16Val =0;
     string tmp = "";
-    ret = daveReadBytes(dc,daveDB,3800,0,1,NULL);
+    string a;
+    ret = readDbWord(dc,3800,0,a);
     if (0==ret)
     {
-        byteVal = daveGetU8(dc);
-        tmp = to_string(byteVal);
+        u16Val = daveGetU8(dc);
+        tmp = to_string(u16Val);
         transferGrayCode("feedRate", tmp);
         val = tmp;
     }
@@ -258,10 +260,23 @@ short readDbByte(daveConnection* dc,int block,int byteAddr,string& val)
     return ret;
 }
 
+short readDbDWord(daveConnection* dc,int block,int byteAddr,string& val)
+{
+    short ret = -1;
+    unsigned int u32Val =0;
+    ret = daveReadBytes(dc,daveDB,block,byteAddr,4,NULL);
+    if(0==ret)
+    {
+        u32Val = daveGetU32(dc);
+        val = to_string(u32Val);
+    }
+    return ret;
+}
+
 short readDbWord(daveConnection* dc,int block,int byteAddr,string& val)
 {
     short ret = -1;
-    unsigned short u16Val =0;
+    unsigned int u16Val =0;
     ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
     if(0==ret)
     {
@@ -275,7 +290,7 @@ short readDbFloat(daveConnection* dc,int block,int byteAddr,string& val)
 {
     short ret = -1;
     float fVal =0.0;
-    ret = daveReadBytes(dc,daveDB,block,byteAddr,2,NULL);
+    ret = daveReadBytes(dc,daveDB,block,byteAddr,4,NULL);
     if(0==ret)
     {
         fVal = daveGetFloat(dc);
@@ -453,8 +468,14 @@ short read_param_val(void *handle, const string &itemName, string &itemValue)
                     }
                     else
                     {
-                        ret = readDbWord(dc, block, byteAddr, itemValue);
+                        ret = readDbDWord(dc, block, byteAddr, itemValue);
                     }
+                }
+                else if((index=tmp.find("DBW")) != string::npos)
+                {
+                    tmp = tmp.erase(0,3);
+                    byteAddr = atoi((char*)tmp.c_str());
+                    ret = readDbWord(dc, block, byteAddr, itemValue);
                 }
             }
         }
