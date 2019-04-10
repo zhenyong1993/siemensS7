@@ -367,19 +367,31 @@ short read_param_val(void *handle, const string &itemName, string &itemValue)
     if(handle)
     {
         daveConnection * dc = (daveConnection*)handle;
-        if(itemName.find("Pos.")!= string::npos)
+        //if(itemName.find("Pos.")!= string::npos)
+        if(itemName.find("/Channel/GeometricAxis/actToolBasePos[u1,1]")!= string::npos)
         {
-            ret = readPos(dc, itemName, itemValue);
+            ret = readPos(dc, "Pos.x", itemValue);
         }
-        else if(itemName=="feedRate")
+        if(itemName.find("/Channel/GeometricAxis/actToolBasePos[u1,2]")!= string::npos)
+        {
+            ret = readPos(dc, "Pos.y", itemValue);
+        }
+        if(itemName.find("/Channel/GeometricAxis/actToolBasePos[u1,3]")!= string::npos)
+        {
+            ret = readPos(dc, "Pos.z", itemValue);
+        }
+        //else if(itemName=="feedRate")
+        else if(itemName=="/Channel/MachineAxis/feedRateOvr")
         {
             ret = readFeedRate(dc,itemValue);
         }
-        else if(itemName=="spindFeedRate")
+        //else if(itemName=="spindFeedRate")
+        else if(itemName=="/Channel/MachineAxis/feedRateOvr")
         {
             ret = readSpindFeedRate(dc,itemValue);
         }
-        else if(itemName=="toolNo")
+        //else if(itemName=="toolNo")
+        else if(itemName=="/Channel/State/actTNumber[u1]")
         {
             ret = readDbByte(dc,2500,2000,itemValue);
         }
@@ -405,7 +417,8 @@ short read_param_val(void *handle, const string &itemName, string &itemValue)
                 itemValue = to_string(tmpU8);
             }
         }
-        else if(itemName=="machineStatus")
+        //else if(itemName=="machineStatus")
+        else if(itemName=="/Channel/State/progStatus[u1]")
         {
             ret = readDbByte(dc,3300,3,tmp);
             if(0==ret)
@@ -415,10 +428,12 @@ short read_param_val(void *handle, const string &itemName, string &itemValue)
                 itemValue = to_string(tmpU8);
             }
         }
-        else if(itemName.find("userAlarm")!= string::npos)
+        //else if(itemName.find("userAlarm")!= string::npos)
+        else if(itemName.find("/Nck/LastAlarm/alarmNo")!= string::npos) ///Nck/LastAlarm/alarmNo[0]
         {
             tmp = itemName;
-            tmp=tmp.erase(0,9);
+            tmp=tmp.erase(0,23);
+			tmp=tmp.erase(1,1);
             tmpU8 = atoi((char*)tmp.c_str());
             if(tmpU8>=0 && tmpU8<16)
             {
